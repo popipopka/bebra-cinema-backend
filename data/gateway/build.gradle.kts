@@ -11,6 +11,7 @@ repositories {
 dependencies {
     implementation(project(":database"))
     implementation(project(":domain"))
+    implementation(project(":usecase"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
