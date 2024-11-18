@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="08-create-ticket-table-01" author="popipopka">
+        <createTable tableName="ticket">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="session_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="row" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="place" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="total_price" type="real">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="ticket"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="08-create-ticket-table-02" author="popipopka">
+        <addForeignKeyConstraint baseTableName="ticket" baseColumnNames="session_id"
+                                 referencedTableName="session" referencedColumnNames="id"
+                                 constraintName="fk_ticket_session"/>
+
+        <addForeignKeyConstraint baseTableName="ticket" baseColumnNames="user_id"
+                                 referencedTableName="user" referencedColumnNames="id"
+                                 constraintName="fk_ticket_user"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="ticket"
+                                      constraintName="fk_ticket_session"/>
+
+            <dropForeignKeyConstraint baseTableName="ticket"
+                                      constraintName="fk_ticket_user"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

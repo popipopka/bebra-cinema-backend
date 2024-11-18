@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="08-create-user_authority-table-1" author="popipopka">
+        <createTable tableName="user_authority">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="authority_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="user_authority"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="08-create-user_authority-table-2" author="popipopka">
+        <addForeignKeyConstraint baseTableName="user_authority" baseColumnNames="user_id"
+                                 referencedTableName="user" referencedColumnNames="id"
+                                 constraintName="fk_user_authority_user"/>
+
+        <addForeignKeyConstraint baseTableName="user_authority" baseColumnNames="authority_id"
+                                 referencedTableName="authority" referencedColumnNames="id"
+                                 constraintName="fk_user_authority_authority"/>
+
+        <rollback>
+            <dropForeignKeyConstraint
+                    baseTableName="user_authority"
+                    constraintName="fk_user_authority_user"/>
+
+            <dropForeignKeyConstraint
+                    baseTableName="user_authority"
+                    constraintName="fk_user_authority_authority"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="07-create-user_authority-table-3" author="popipopka">
+        <addUniqueConstraint tableName="user_authority" columnNames="user_id, authority_id"
+                             constraintName="uk_user_authority"/>
+
+        <rollback>
+            <dropUniqueConstraint tableName="user_authority"
+                                  constraintName="uk_user_authority"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

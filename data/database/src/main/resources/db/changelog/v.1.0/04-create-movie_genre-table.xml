@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="04-create-movie_genre-table-1" author="popipopka">
+        <createTable tableName="movie_genre">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="movie_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="genre_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="movie_genre"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="04-create-movie_genre-table-2" author="popipopka">
+        <addForeignKeyConstraint baseTableName="movie_genre" baseColumnNames="movie_id"
+                                 referencedTableName="movie" referencedColumnNames="id"
+                                 constraintName="fk_movie_genre_movie"/>
+
+        <addForeignKeyConstraint baseTableName="movie_genre" baseColumnNames="genre_id"
+                                 referencedTableName="genre" referencedColumnNames="id"
+                                 constraintName="fk_movie_genre_genre"/>
+
+        <rollback>
+            <dropForeignKeyConstraint
+                    baseTableName="movie_genre"
+                    constraintName="fk_movie_genre_movie"/>
+
+            <dropForeignKeyConstraint
+                    baseTableName="movie_genre"
+                    constraintName="fk_movie_genre_genre"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="04-create-movie_genre-table-3" author="popipopka">
+        <addUniqueConstraint tableName="movie_genre" columnNames="movie_id, genre_id"
+                             constraintName="uk_movie_genre"/>
+
+        <rollback>
+            <dropUniqueConstraint tableName="movie_genre"
+                                  constraintName="uk_movie_genre"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
