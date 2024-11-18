@@ -11,3 +11,9 @@ project(":usecase").apply {
     projectDir = file("core/usecase")
     buildFileName = "build.gradle.kts"
 }
+
+include(":database")
+project(":database").apply {
+    projectDir = file("data/database")
+    buildFileName = "build.gradle.kts"
+}
