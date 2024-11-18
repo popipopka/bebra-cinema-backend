@@ -17,3 +17,9 @@ project(":database").apply {
     projectDir = file("data/database")
     buildFileName = "build.gradle.kts"
 }
+
+include(":gateway")
+project(":gateway").apply {
+    projectDir = file("data/gateway")
+    buildFileName = "build.gradle.kts"
+}
