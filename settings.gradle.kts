@@ -23,3 +23,9 @@ project(":gateway").apply {
     projectDir = file("data/gateway")
     buildFileName = "build.gradle.kts"
 }
+
+include(":controller")
+project(":controller").apply {
+    projectDir = file("web/controller")
+    buildFileName = "build.gradle.kts"
+}
