@@ -7,4 +7,5 @@
 
     <includeAll path="/v.1.0" relativeToChangelogFile="true" endsWithFilter=".xml"/>
     <includeAll path="/v.1.1" relativeToChangelogFile="true" endsWithFilter=".xml"/>
+    <includeAll path="/v.1.2" relativeToChangelogFile="true" endsWithFilter=".xml"/>
 </databaseChangeLog>
