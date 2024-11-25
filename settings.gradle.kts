@@ -29,3 +29,5 @@ project(":controller").apply {
     projectDir = file("web/controller")
     buildFileName = "build.gradle.kts"
 }
+
+include(":app")

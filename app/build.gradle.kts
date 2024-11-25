@@ -9,21 +9,22 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":database"))
     implementation(project(":domain"))
     implementation(project(":usecase"))
+    implementation(project(":database"))
+    implementation(project(":gateway"))
+    implementation(project(":controller"))
 
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
-    implementation("org.mapstruct:mapstruct:1.5.5.Final")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
-    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
+    "developmentOnly"("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.test {

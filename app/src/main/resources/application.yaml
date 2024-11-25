@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: bebra-cinema
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cinema
+    username: root
+    password: 123456
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-main.xml
