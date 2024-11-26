@@ -1,5 +1,6 @@
 package it.bebra.cinema.app.config;
 
+import it.bebra.cinema.gateway.mapper.AuthorityMapper;
 import it.bebra.cinema.gateway.mapper.TicketMapper;
 import it.bebra.cinema.gateway.mapper.UserMapper;
 import org.springframework.context.annotation.Bean;
@@ -21,5 +22,10 @@ public class GatewayMapperConfig {
     @Bean
     public UserMapper gatewayUserMapper() {
         return UserMapper.INSTANCE;
+    }
+
+    @Bean
+    public AuthorityMapper gatewayAuthorityMapper() {
+        return AuthorityMapper.INSTANCE;
     }
 }

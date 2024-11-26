@@ -13,10 +13,14 @@ public class UserRepositoryImpl implements UserRepository {
     private final JpaUserRepository jpaUserRepository;
     private final UserMapper userMapper;
 
-
     @Override
     public Optional<User> findByUsername(String username) {
         return jpaUserRepository.findByUsername(username)
                 .map(userMapper::toDomain);
+    }
+
+    @Override
+    public void save(User user) {
+        jpaUserRepository.save(userMapper.toEntity(user));
     }
 }

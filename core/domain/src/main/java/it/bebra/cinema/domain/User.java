@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,9 +22,16 @@ public final class User {
 
     private String password;
 
-    private Instant createTime;
+    @Builder.Default
+    private Instant createTime = Instant.now();
 
-    private Instant updateTime;
+    @Builder.Default
+    private Instant updateTime = Instant.now();
 
-    private Set<Authority> authorities;
+    @Builder.Default
+    private Set<Authority> authorities = new HashSet<>();
+
+    public void addAuthority(final Authority authority) {
+        authorities.add(authority);
+    }
 }
