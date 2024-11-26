@@ -15,10 +15,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public final class JpaUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Column(nullable = false, length = 64)
@@ -33,7 +34,7 @@ public final class JpaUser {
     @Column(nullable = false, unique = true, length = 32)
     private String username;
 
-    @Column(nullable = false, unique = true, length = 32)
+    @Column(name = "password_hash", columnDefinition = "TEXT", nullable = false, unique = true)
     private String password;
 
     @Column(nullable = false)
@@ -42,7 +43,7 @@ public final class JpaUser {
     @Column(nullable = false)
     private Instant updateTime;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -24,10 +24,5 @@ project(":gateway").apply {
     buildFileName = "build.gradle.kts"
 }
 
-include(":controller")
-project(":controller").apply {
-    projectDir = file("web/controller")
-    buildFileName = "build.gradle.kts"
-}
-
+include(":web")
 include(":app")

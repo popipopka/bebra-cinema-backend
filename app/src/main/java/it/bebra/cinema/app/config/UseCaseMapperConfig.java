@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UseCaseMapperConfig {
     @Bean
-    public TicketMapper ticketMapper() {
+    public TicketMapper usecaseTicketMapper() {
         return TicketMapper.INSTANCE;
     }
 }

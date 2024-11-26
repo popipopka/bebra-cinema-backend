@@ -9,11 +9,10 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":domain"))
     implementation(project(":usecase"))
     implementation(project(":database"))
     implementation(project(":gateway"))
-    implementation(project(":controller"))
+    implementation(project(":web"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
