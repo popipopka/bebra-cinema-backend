@@ -25,7 +25,4 @@ public final class JpaHall {
 
     @Column(nullable = false)
     private Integer capacity;
-
-    @OneToMany(mappedBy = "hall")
-    private List<JpaSession> sessions = new ArrayList<>();
 }

@@ -43,7 +43,4 @@ public final class JpaMovie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<JpaGenre> genres = new HashSet<>();
-
-    @OneToMany(mappedBy = "movie")
-    private List<JpaSession> sessions = new ArrayList<>();
 }
