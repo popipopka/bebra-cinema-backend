@@ -8,6 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Конфигурационный файл для настройки бинов Spring приложения.
+ * <p>
+ * Используется для настройки бинов сценариев использования используемых в модуле {@link it.bebra.cinema.usecase}.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class UseCaseConfig {

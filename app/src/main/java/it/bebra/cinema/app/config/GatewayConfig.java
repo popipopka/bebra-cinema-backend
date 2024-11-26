@@ -8,6 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Конфигурационный файл для настройки бинов Spring приложения.
+ * <p>
+ * Используется для настройки бинов шлюзов используемых в модуле {@link it.bebra.cinema.gateway}.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class GatewayConfig {
