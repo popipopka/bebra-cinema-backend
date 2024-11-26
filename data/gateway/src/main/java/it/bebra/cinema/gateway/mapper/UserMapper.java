@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = MapperConfig.class)
-public interface GatewayUserMapper {
+public interface UserMapper {
     JpaUser toEntity(User domain);
 
     @Mapping(target = "password", ignore = true)

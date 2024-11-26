@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(config = MapperConfig.class,
-        uses = GatewaySessionMapper.class)
-public interface GatewayTicketMapper {
-    GatewayTicketMapper INSTANCE = Mappers.getMapper(GatewayTicketMapper.class);
+        uses = SessionMapper.class)
+public interface TicketMapper {
+    TicketMapper INSTANCE = Mappers.getMapper(TicketMapper.class);
 
     JpaTicket toEntity(Ticket domain);
 
