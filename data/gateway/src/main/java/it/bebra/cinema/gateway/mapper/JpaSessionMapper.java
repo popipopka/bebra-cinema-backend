@@ -4,9 +4,9 @@ import it.bebra.cinema.database.entity.JpaSession;
 import it.bebra.cinema.domain.Session;
 import org.mapstruct.Mapper;
 
-@Mapper(config = MapperConfig.class,
-        uses = {MovieMapper.class, HallMapper.class})
-public interface SessionMapper {
+@Mapper(config = JpaMapperConfig.class,
+        uses = {JpaMovieMapper.class, JpaHallMapper.class})
+public interface JpaSessionMapper {
     JpaSession toEntity(Session domain);
 
     Session toDomain(JpaSession entity);

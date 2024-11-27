@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(config = MapperConfig.class)
-public interface TicketMapper {
-    TicketMapper INSTANCE = Mappers.getMapper(TicketMapper.class);
+@Mapper(config = DomainMapperConfig.class)
+public interface DomainTicketMapper {
+    DomainTicketMapper INSTANCE = Mappers.getMapper(DomainTicketMapper.class);
 
     @Mapping(source = "session.startTime", target = "sessionStartTime")
     @Mapping(source = "session.movie.name", target = "movieName")

@@ -5,7 +5,7 @@ import it.bebra.cinema.domain.User;
 import it.bebra.cinema.usecase.dto.UserCreateRequestDto;
 import it.bebra.cinema.usecase.exception.AlreadyExistsException;
 import it.bebra.cinema.usecase.exception.NotFoundException;
-import it.bebra.cinema.usecase.mapper.UserMapper;
+import it.bebra.cinema.usecase.mapper.DomainUserMapper;
 import it.bebra.cinema.usecase.port.in.CreateUserUseCase;
 import it.bebra.cinema.usecase.port.out.AuthorityRepository;
 import it.bebra.cinema.usecase.port.out.UserRepository;
@@ -19,7 +19,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final UserMapper userMapper;
+    private final DomainUserMapper userMapper;
 
     @Override
     public void invoke(UserCreateRequestDto request) {

@@ -5,8 +5,8 @@ import it.bebra.cinema.database.entity.JpaHall;
 import it.bebra.cinema.domain.Hall;
 import org.mapstruct.Mapper;
 
-@Mapper(config = MapperConfig.class)
-public interface HallMapper {
+@Mapper(config = JpaMapperConfig.class)
+public interface JpaHallMapper {
     JpaHall toEntity(Hall domain);
 
     Hall toDomain(JpaHall entity);

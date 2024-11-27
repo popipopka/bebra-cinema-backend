@@ -5,9 +5,9 @@ import it.bebra.cinema.usecase.dto.UserCreateRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(config = MapperConfig.class)
-public interface UserMapper {
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+@Mapper(config = DomainMapperConfig.class)
+public interface DomainUserMapper {
+    DomainUserMapper INSTANCE = Mappers.getMapper(DomainUserMapper.class);
 
     User toDomain(UserCreateRequestDto dto);
 }

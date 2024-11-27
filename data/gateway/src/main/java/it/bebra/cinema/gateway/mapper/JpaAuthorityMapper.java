@@ -5,9 +5,9 @@ import it.bebra.cinema.domain.Authority;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(config = MapperConfig.class)
-public interface AuthorityMapper {
-    AuthorityMapper INSTANCE = Mappers.getMapper(AuthorityMapper.class);
+@Mapper(config = JpaMapperConfig.class)
+public interface JpaAuthorityMapper {
+    JpaAuthorityMapper INSTANCE = Mappers.getMapper(JpaAuthorityMapper.class);
 
     JpaAuthority toEntity(Authority domain);
 

@@ -1,7 +1,7 @@
 package it.bebra.cinema.usecase.usecase;
 
 import it.bebra.cinema.usecase.dto.TicketListResponseDto;
-import it.bebra.cinema.usecase.mapper.TicketMapper;
+import it.bebra.cinema.usecase.mapper.DomainTicketMapper;
 import it.bebra.cinema.usecase.port.in.GetAllTicketsUseCase;
 import it.bebra.cinema.usecase.port.out.TicketRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetAllTicketsUseCaseImpl implements GetAllTicketsUseCase {
     private final TicketRepository ticketRepository;
-    private final TicketMapper ticketMapper;
+    private final DomainTicketMapper ticketMapper;
 
     @Override
     public List<TicketListResponseDto> invoke(String username) {

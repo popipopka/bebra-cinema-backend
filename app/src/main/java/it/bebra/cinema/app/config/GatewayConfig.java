@@ -3,9 +3,9 @@ package it.bebra.cinema.app.config;
 import it.bebra.cinema.database.repository.JpaAuthorityRepository;
 import it.bebra.cinema.database.repository.JpaTicketRepository;
 import it.bebra.cinema.database.repository.JpaUserRepository;
-import it.bebra.cinema.gateway.mapper.AuthorityMapper;
-import it.bebra.cinema.gateway.mapper.TicketMapper;
-import it.bebra.cinema.gateway.mapper.UserMapper;
+import it.bebra.cinema.gateway.mapper.JpaAuthorityMapper;
+import it.bebra.cinema.gateway.mapper.JpaTicketMapper;
+import it.bebra.cinema.gateway.mapper.JpaUserMapper;
 import it.bebra.cinema.gateway.repository.AuthorityRepositoryImpl;
 import it.bebra.cinema.gateway.repository.TicketRepositoryImpl;
 import it.bebra.cinema.gateway.repository.UserRepositoryImpl;
@@ -28,9 +28,9 @@ public class GatewayConfig {
     private final JpaUserRepository jpaUserRepository;
     private final JpaAuthorityRepository JpaAuthorityRepository;
 
-    private final TicketMapper ticketMapper;
-    private final UserMapper userMapper;
-    private final AuthorityMapper authorityMapper;
+    private final JpaTicketMapper ticketMapper;
+    private final JpaUserMapper userMapper;
+    private final JpaAuthorityMapper authorityMapper;
 
     @Bean
     public TicketRepository ticketRepository() {

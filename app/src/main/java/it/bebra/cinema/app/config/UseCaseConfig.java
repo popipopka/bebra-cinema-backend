@@ -1,7 +1,7 @@
 package it.bebra.cinema.app.config;
 
-import it.bebra.cinema.usecase.mapper.TicketMapper;
-import it.bebra.cinema.usecase.mapper.UserMapper;
+import it.bebra.cinema.usecase.mapper.DomainTicketMapper;
+import it.bebra.cinema.usecase.mapper.DomainUserMapper;
 import it.bebra.cinema.usecase.port.in.CreateUserUseCase;
 import it.bebra.cinema.usecase.port.in.GetAllTicketsUseCase;
 import it.bebra.cinema.usecase.port.out.AuthorityRepository;
@@ -26,8 +26,8 @@ public class UseCaseConfig {
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
 
-    private final TicketMapper ticketMapper;
-    private final UserMapper userMapper;
+    private final DomainTicketMapper ticketMapper;
+    private final DomainUserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
 

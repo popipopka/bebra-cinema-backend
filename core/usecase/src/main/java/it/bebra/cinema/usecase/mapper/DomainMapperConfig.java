@@ -1,7 +1,7 @@
-package it.bebra.cinema.gateway.mapper;
+package it.bebra.cinema.usecase.mapper;
 
 import org.mapstruct.ReportingPolicy;
 
 @org.mapstruct.MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface MapperConfig {
+public interface DomainMapperConfig {
 }

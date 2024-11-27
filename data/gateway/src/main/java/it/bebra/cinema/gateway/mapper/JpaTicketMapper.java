@@ -5,10 +5,10 @@ import it.bebra.cinema.domain.Ticket;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(config = MapperConfig.class,
-        uses = SessionMapper.class)
-public interface TicketMapper {
-    TicketMapper INSTANCE = Mappers.getMapper(TicketMapper.class);
+@Mapper(config = JpaMapperConfig.class,
+        uses = JpaSessionMapper.class)
+public interface JpaTicketMapper {
+    JpaTicketMapper INSTANCE = Mappers.getMapper(JpaTicketMapper.class);
 
     JpaTicket toEntity(Ticket domain);
 
