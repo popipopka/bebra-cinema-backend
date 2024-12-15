@@ -1,31 +1,17 @@
 plugins {
-    id("java")
-    id("org.springframework.boot") version "3.3.3"
-    id("io.spring.dependency-management") version "1.1.6"
+    id("org.springframework.boot")
 }
 
-repositories {
-    mavenCentral()
-}
 
 dependencies {
-    implementation(project(":usecase"))
-    implementation(project(":database"))
-    implementation(project(":gateway"))
-    implementation(project(":web"))
+    implementation(project(":application"))
+    implementation(project(":postgresql-spring-data-jpa"))
+    implementation(project(":output-port-adapter-spring-data-jpa"))
+    implementation(project(":input-port-adapter-spring-webmvc"))
+    implementation(project(":security-spring-security"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
-    "developmentOnly"("org.springframework.boot:spring-boot-devtools")
-}
-
-tasks.test {
-    useJUnitPlatform()
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 }

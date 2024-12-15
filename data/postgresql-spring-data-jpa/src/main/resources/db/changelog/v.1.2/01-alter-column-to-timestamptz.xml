@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="01-alter-column-to-timestamptz-01" author="popipopka">
+        <modifyDataType tableName="session" columnName="start_time" newDataType="timestamptz"/>
+
+        <modifyDataType tableName="user" columnName="created_time" newDataType="timestamptz"/>
+        <modifyDataType tableName="user" columnName="updated_time" newDataType="timestamptz"/>
+
+        <rollback>
+            <modifyDataType tableName="session" columnName="startTime" newDataType="timestamp"/>
+
+            <modifyDataType tableName="user" columnName="created_time" newDataType="timestamp"/>
+            <modifyDataType tableName="user" columnName="updated_time" newDataType="timestamp"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
