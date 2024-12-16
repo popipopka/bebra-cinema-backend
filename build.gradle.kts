@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("java")
     id("org.springframework.boot") version "3.3.3" apply false

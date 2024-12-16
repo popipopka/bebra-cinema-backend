@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("org.springframework.boot")
 }
@@ -14,4 +16,18 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
+
+tasks {
+    named<BootJar>("bootJar") {
+        layered {
+            enabled = true
+        }
+        archiveFileName.set("bebra-cinema-app.jar")
+        mainClass.set("it.bebra.cinema.app.BebraCinemaApplication")
+    }
+
+    named<Jar>("jar") {
+        enabled = false
+    }
 }
