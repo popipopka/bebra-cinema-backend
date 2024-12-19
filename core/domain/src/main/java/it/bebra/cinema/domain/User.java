@@ -23,10 +23,10 @@ public final class User {
     private String password;
 
     @Builder.Default
-    private Instant createTime = Instant.now();
+    private Instant createdTime = Instant.now();
 
     @Builder.Default
-    private Instant updateTime = Instant.now();
+    private Instant updatedTime = Instant.now();
 
     @Builder.Default
     private Set<Authority> authorities = new HashSet<>();

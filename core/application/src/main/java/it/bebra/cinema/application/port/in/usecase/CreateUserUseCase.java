@@ -23,8 +23,9 @@ public class CreateUserUseCase implements CreateUserInputPort {
 
     @Override
     public void invoke(UserCreateRequestDto request) {
-        userOutputPort.findUserByUsername(request.getUsername())
-                .orElseThrow(() -> new UserAlreadyExistsException(request.getUsername()));
+        if (userOutputPort.existsUserByUsername(request.getUsername())) {
+            throw new UserAlreadyExistsException(request.getUsername());
+        }
 
         User user = userMapper.toDomain(request);
 

@@ -23,9 +23,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("api/v1/tickets").hasAnyRole("USER", "MANAGER", "ADMIN")
-                        .requestMatchers("api/v1/movies").hasAnyRole("USER", "MANAGER", "ADMIN")
-                        .requestMatchers("api/v1/users/**").permitAll()
+                        .requestMatchers("api/v1/public/**").permitAll()
+                        .anyRequest().hasAnyRole("USER", "MANAGER", "ADMIN")
                 )
                 .httpBasic(Customizer.withDefaults())
                 .build();

@@ -21,6 +21,11 @@ public class JpaUserRepositoryAdapter implements UserOutputPort {
     }
 
     @Override
+    public boolean existsUserByUsername(String username) {
+        return jpaUserRepository.existsByUsername(username);
+    }
+
+    @Override
     public void createUser(User user) {
         jpaUserRepository.save(userMapper.toEntity(user));
     }

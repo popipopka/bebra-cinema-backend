@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreateUserController {
     private final CreateUserInputPort createUserInputPort;
 
-    @PostMapping("api/v1/users")
+    @PostMapping("api/v1/public/users")
     public ResponseEntity<Void> createUser(@RequestBody UserCreateRequestDto body) {
         createUserInputPort.invoke(body);
 
