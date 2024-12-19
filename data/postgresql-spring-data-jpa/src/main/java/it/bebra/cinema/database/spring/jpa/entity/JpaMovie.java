@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,8 @@ public final class JpaMovie {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @BatchSize(size = 10)
     @JoinTable(
             name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id"),
