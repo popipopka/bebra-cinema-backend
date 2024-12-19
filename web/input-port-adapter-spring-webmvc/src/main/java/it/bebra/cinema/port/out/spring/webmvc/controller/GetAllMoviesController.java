@@ -5,18 +5,16 @@ import it.bebra.cinema.application.port.in.GetAllMoviesInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/movies")
 @RequiredArgsConstructor
 public class GetAllMoviesController {
     private final GetAllMoviesInputPort getAllMoviesInputPort;
 
-    @GetMapping
+    @GetMapping("/api/v1/movies")
     public ResponseEntity<List<MovieListResponseDto>> getAllMovies() {
         List<MovieListResponseDto> movies = getAllMoviesInputPort.invoke();
 
