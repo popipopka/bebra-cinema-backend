@@ -6,6 +6,7 @@ dependencies {
     implementation(project(":postgresql-spring-data-jpa"))
     implementation(project(":domain"))
     implementation(project(":application"))
+    implementation(project(":security-jwt-spring-security"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 

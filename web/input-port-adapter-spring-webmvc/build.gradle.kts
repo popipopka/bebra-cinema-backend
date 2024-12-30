@@ -1,5 +1,3 @@
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-
 plugins {
     id("org.springframework.boot")
 }
@@ -7,7 +5,7 @@ plugins {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":application"))
-    implementation(project(":security-spring-security"))
+    implementation(project(":security-jwt-spring-security"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")

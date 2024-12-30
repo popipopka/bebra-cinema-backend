@@ -30,9 +30,9 @@ project(":input-port-adapter-spring-webmvc").apply {
     buildFileName = "build.gradle.kts"
 }
 
-include("security-spring-security")
-project(":security-spring-security").apply {
-    projectDir = file("web/security-spring-security")
+include("security-jwt-spring-security")
+project(":security-jwt-spring-security").apply {
+    projectDir = file("web/security-jwt-spring-security")
     buildFileName = "build.gradle.kts"
 }
 

@@ -1,6 +1,6 @@
 package it.bebra.cinema.port.out.spring.jpa.mapper;
 
-import it.bebra.cinema.database.spring.jpa.entity.JpaSession;
+import it.bebra.cinema.persistence.database.spring.jpa.entity.JpaSession;
 import it.bebra.cinema.domain.Session;
 import org.mapstruct.Mapper;
 

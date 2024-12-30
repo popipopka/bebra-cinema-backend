@@ -1,10 +1,12 @@
 package it.bebra.cinema.app.config;
 
 import it.bebra.cinema.application.mapper.DomainMovieMapper;
-import it.bebra.cinema.application.mapper.DomainSessionMapper;
 import it.bebra.cinema.application.mapper.DomainTicketMapper;
 import it.bebra.cinema.application.mapper.DomainUserMapper;
-import it.bebra.cinema.application.port.in.usecase.*;
+import it.bebra.cinema.application.port.in.usecase.CreateUserUseCase;
+import it.bebra.cinema.application.port.in.usecase.GetAllMoviesUseCase;
+import it.bebra.cinema.application.port.in.usecase.GetAllTicketsUseCase;
+import it.bebra.cinema.application.port.in.usecase.GetMovieUseCase;
 import it.bebra.cinema.application.port.out.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

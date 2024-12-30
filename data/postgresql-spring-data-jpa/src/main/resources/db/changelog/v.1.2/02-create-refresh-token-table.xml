@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="01-create-refresh-token-table-1" author="popipopka">
+        <createTable tableName="refresh_token">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints unique="true" nullable="false"/>
+            </column>
+
+            <column name="value" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="refresh_token"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="01-create-refresh-token-table-2" author="popipopka">
+        <addForeignKeyConstraint baseTableName="refresh_token" baseColumnNames="user_id"
+                                 referencedTableName="user" referencedColumnNames="id"
+                                 constraintName="fk_refresh_token_user"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="refresh_token"
+                                      constraintName="fk_refresh_token_user"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

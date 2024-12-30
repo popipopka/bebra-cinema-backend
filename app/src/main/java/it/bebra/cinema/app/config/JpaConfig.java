@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 
 @Configuration
-@EnableJpaRepositories(basePackages = "it.bebra.cinema.database.spring.jpa.repository")
-@EntityScan(basePackages = "it.bebra.cinema.database.spring.jpa.entity")
+@EnableJpaRepositories(basePackages = "it.bebra.cinema.persistence.database.spring.jpa.repository")
+@EntityScan(basePackages = "it.bebra.cinema.persistence.database.spring.jpa.entity")
 public class JpaConfig {
 }
