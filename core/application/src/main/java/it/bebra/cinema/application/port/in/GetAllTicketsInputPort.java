@@ -1,9 +1,10 @@
 package it.bebra.cinema.application.port.in;
 
-import it.bebra.cinema.application.dto.TicketListResponseDto;
+import it.bebra.cinema.application.dto.page.KeysetPageDto;
+import it.bebra.cinema.application.dto.response.TicketListResponseDto;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface GetAllTicketsInputPort {
-    List<TicketListResponseDto> invoke(String username);
+    KeysetPageDto<TicketListResponseDto> invoke(String username, Optional<Integer> lastId, int limit);
 }

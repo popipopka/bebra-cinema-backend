@@ -1,7 +1,10 @@
-package it.bebra.cinema.application.dto;
+package it.bebra.cinema.application.dto.response;
+
+import lombok.Data;
 
 import java.time.Instant;
 
+@Data
 public class UserDetailResponseDto {
     private int id;
 

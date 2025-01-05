@@ -17,16 +17,21 @@ public class JpaMovieRepositoryAdapter implements MovieOutputPort {
     private final JpaMovieMapper movieMapper;
 
     @Override
-    public List<Movie> findAllMovies() {
-        return jpaMovieRepository.findAll()
+    public List<Movie> findAllWithLimitByIdLessThan(int id, int limit) {
+        return jpaMovieRepository.findAllWithLimitByIdLessThan(id, limit)
                 .stream()
                 .map(movieMapper::toDomain)
                 .toList();
     }
 
     @Override
-    public Optional<Movie> findMovieById(int id) {
+    public Optional<Movie> findById(int id) {
         return jpaMovieRepository.findById(id)
                 .map(movieMapper::toDomain);
+    }
+
+    @Override
+    public boolean existsByIdLessThan(int id) {
+        return jpaMovieRepository.existsByIdLessThan(id);
     }
 }

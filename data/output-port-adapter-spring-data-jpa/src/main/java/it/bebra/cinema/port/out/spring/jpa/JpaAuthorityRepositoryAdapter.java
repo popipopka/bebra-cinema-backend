@@ -16,7 +16,7 @@ public class JpaAuthorityRepositoryAdapter implements AuthorityOutputPort {
     private final JpaAuthorityMapper authorityMapper;
 
     @Override
-    public Optional<Authority> findAuthorityByName(String name) {
+    public Optional<Authority> findByName(String name) {
         return jpaAuthorityRepository.findByName(name)
                 .map(authorityMapper::toDomain);
     }

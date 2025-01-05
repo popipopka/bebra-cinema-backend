@@ -1,4 +1,4 @@
-package it.bebra.cinema.application.dto;
+package it.bebra.cinema.application.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

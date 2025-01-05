@@ -5,5 +5,5 @@ import it.bebra.cinema.domain.Authority;
 import java.util.Optional;
 
 public interface AuthorityOutputPort {
-    Optional<Authority> findAuthorityByName(String name);
+    Optional<Authority> findByName(String name);
 }

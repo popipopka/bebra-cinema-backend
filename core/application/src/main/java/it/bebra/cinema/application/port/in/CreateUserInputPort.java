@@ -1,7 +1,7 @@
 package it.bebra.cinema.application.port.in;
 
-import it.bebra.cinema.application.dto.UserCreateRequestDto;
+import it.bebra.cinema.application.dto.request.UserCreateRequestDto;
 
 public interface CreateUserInputPort {
-    void invoke(UserCreateRequestDto request);
+    int invoke(UserCreateRequestDto request);
 }

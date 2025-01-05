@@ -5,9 +5,9 @@ import it.bebra.cinema.domain.User;
 import java.util.Optional;
 
 public interface UserOutputPort {
-    void createUser(User user);
+    int create(User user);
 
-    Optional<User> findUserByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-    boolean existsUserByUsername(String username);
+    boolean existsByUsername(String username);
 }

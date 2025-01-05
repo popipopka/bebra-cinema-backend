@@ -17,18 +17,20 @@ public class JpaUserRepositoryAdapter implements UserOutputPort {
     private final JpaUserMapper userMapper;
 
     @Override
-    public Optional<User> findUserByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         return jpaUserRepository.findByUsername(username)
                 .map(userMapper::toDomain);
     }
 
     @Override
-    public boolean existsUserByUsername(String username) {
+    public boolean existsByUsername(String username) {
         return jpaUserRepository.existsByUsername(username);
     }
 
     @Override
-    public void createUser(User user) {
-        jpaUserRepository.save(userMapper.toEntity(user));
+    public int create(User user) {
+        return jpaUserRepository
+                .save(userMapper.toEntity(user))
+                .getId();
     }
 }

@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class GetNewAccessTokenUseCase implements GetNewAccessTokenInputPort {
-    private static final String REFRESH_TOKEN_IS_INVALID_OR_EXPIRED = "Refresh token is invalid or expired";
-    private static final String REFRESH_TOKEN_IS_REVOKED = "Refresh token has been revoked";
+
 
     private final JwtTokenServiceProvider jwtTokenServiceProvider;
     private final RefreshTokenOutputPort refreshTokenOutputPort;
@@ -26,19 +25,19 @@ public class GetNewAccessTokenUseCase implements GetNewAccessTokenInputPort {
     @Override
     public AccessTokenDto invoke(String oldRefreshToken) {
         if (!jwtTokenServiceProvider.isValid(oldRefreshToken, JwtTokenType.REFRESH)) {
-            throw new JwtAuthenticationException(REFRESH_TOKEN_IS_INVALID_OR_EXPIRED);
+            throw JwtAuthenticationException.invalidRefreshToken();
         }
 
         String username = jwtTokenServiceProvider.extractUsername(oldRefreshToken, JwtTokenType.REFRESH);
 
         Token savedRefreshToken = refreshTokenOutputPort.findTokenByUserUsername(username)
-                .orElseThrow(() -> new JwtAuthenticationException(REFRESH_TOKEN_IS_REVOKED));
+                .orElseThrow(JwtAuthenticationException::revokedRefreshToken);
 
         if (!savedRefreshToken.getValue().equals(oldRefreshToken)) {
-            throw new JwtAuthenticationException(REFRESH_TOKEN_IS_REVOKED);
+            throw JwtAuthenticationException.revokedRefreshToken();
         }
 
-        User user = userOutputPort.findUserByUsername(username)
+        User user = userOutputPort.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         Token accessToken = jwtTokenServiceProvider.generateToken(user, JwtTokenType.ACCESS);

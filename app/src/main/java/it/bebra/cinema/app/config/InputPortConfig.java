@@ -1,12 +1,11 @@
 package it.bebra.cinema.app.config;
 
 import it.bebra.cinema.application.mapper.DomainMovieMapper;
+import it.bebra.cinema.application.mapper.DomainSessionMapper;
 import it.bebra.cinema.application.mapper.DomainTicketMapper;
 import it.bebra.cinema.application.mapper.DomainUserMapper;
-import it.bebra.cinema.application.port.in.usecase.CreateUserUseCase;
-import it.bebra.cinema.application.port.in.usecase.GetAllMoviesUseCase;
-import it.bebra.cinema.application.port.in.usecase.GetAllTicketsUseCase;
-import it.bebra.cinema.application.port.in.usecase.GetMovieUseCase;
+import it.bebra.cinema.application.port.in.*;
+import it.bebra.cinema.application.port.in.usecase.*;
 import it.bebra.cinema.application.port.out.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,29 +22,46 @@ public class InputPortConfig {
     private final PasswordEncoderOutputPort passwordEncoderOutputPort;
     private final TicketOutputPort ticketOutputPort;
     private final UserOutputPort userOutputPort;
+    private final SessionOutputPort sessionOutputPort;
 
     private final DomainMovieMapper domainMovieMapper;
     private final DomainTicketMapper domainTicketMapper;
     private final DomainUserMapper domainUserMapper;
+    private final DomainSessionMapper domainSessionMapper;
 
 
     @Bean
-    public CreateUserUseCase createUserUseCase() {
+    public CreateUserInputPort createUserUseCase() {
         return new CreateUserUseCase(userOutputPort, authorityOutputPort, passwordEncoderOutputPort, domainUserMapper);
     }
 
     @Bean
-    public GetAllMoviesUseCase getAllMoviesUseCase() {
+    public GetAllMoviesInputPort getAllMoviesUseCase() {
         return new GetAllMoviesUseCase(movieOutputPort, domainMovieMapper);
     }
 
     @Bean
-    public GetAllTicketsUseCase getAllTicketsUseCase() {
+    public GetAllTicketsInputPort getAllTicketsUseCase() {
         return new GetAllTicketsUseCase(ticketOutputPort, domainTicketMapper);
     }
 
     @Bean
-    public GetMovieUseCase getMovieUseCase() {
+    public GetMovieInputPort getMovieUseCase() {
         return new GetMovieUseCase(movieOutputPort, domainMovieMapper);
+    }
+
+    @Bean
+    public GetAllMovieSessionsInputPort getMovieSessionsInputPort() {
+        return new GetAllMovieSessionsUseCase(sessionOutputPort, domainSessionMapper);
+    }
+
+    @Bean
+    public GetUserInputPort getUserInputPort() {
+        return new GetUserUseCase(userOutputPort, domainUserMapper);
+    }
+
+    @Bean
+    public CreateTicketInputPort createTicketInputPort() {
+        return new CreateTicketUseCase(ticketOutputPort, userOutputPort, sessionOutputPort);
     }
 }

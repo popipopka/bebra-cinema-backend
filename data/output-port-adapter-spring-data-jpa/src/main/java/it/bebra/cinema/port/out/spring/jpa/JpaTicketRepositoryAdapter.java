@@ -16,10 +16,27 @@ public class JpaTicketRepositoryAdapter implements TicketOutputPort {
     private final JpaTicketMapper ticketMapper;
 
     @Override
-    public List<Ticket> findAllTicketsByUserUsername(String username) {
-        return jpaTicketRepository.findAllByUserUsername(username)
+    public List<Ticket> findAllByUserUsername(String username, int id, int limit) {
+        return jpaTicketRepository.findAllWithLimitByUserUsernameAndIdLessThan(username, id, limit)
                 .stream()
                 .map(ticketMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public boolean existsByUserUsernameAndIdLessThan(String username, int id) {
+        return jpaTicketRepository.existsByUserUsernameAndIdLessThan(username, id);
+    }
+
+    @Override
+    public int countBySessionId(int sessionId) {
+        return jpaTicketRepository.countBySessionId(sessionId);
+    }
+
+    @Override
+    public int create(Ticket ticket) {
+        return jpaTicketRepository
+                .save(ticketMapper.toEntity(ticket))
+                .getId();
     }
 }

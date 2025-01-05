@@ -1,6 +1,6 @@
 package it.bebra.cinema.port.in.spring.webmvc;
 
-import it.bebra.cinema.application.dto.MovieDetailResponseDto;
+import it.bebra.cinema.application.dto.response.MovieDetailResponseDto;
 import it.bebra.cinema.application.port.in.GetMovieInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

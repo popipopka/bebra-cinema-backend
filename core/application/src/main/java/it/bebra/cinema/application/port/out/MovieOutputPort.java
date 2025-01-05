@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MovieOutputPort {
-    List<Movie> findAllMovies();
+    List<Movie> findAllWithLimitByIdLessThan(int id, int limit);
 
-    Optional<Movie> findMovieById(int id);
+    Optional<Movie> findById(int id);
+
+    boolean existsByIdLessThan(int id);
 }

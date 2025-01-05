@@ -31,7 +31,7 @@ public class LoginUseCase implements LoginInputPort {
     public LoginResponseDto invoke(LoginRequestDto loginRequestDto) {
         String username = loginRequestDto.getUsername();
 
-        User user = userOutputPort.findUserByUsername(username)
+        User user = userOutputPort.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
