@@ -1,8 +1,8 @@
 package it.bebra.cinema.application.mapper;
 
-import it.bebra.cinema.application.dto.UserDetailResponseDto;
+import it.bebra.cinema.application.dto.response.UserDetailResponseDto;
 import it.bebra.cinema.domain.User;
-import it.bebra.cinema.application.dto.UserCreateRequestDto;
+import it.bebra.cinema.application.dto.request.UserCreateRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +12,5 @@ public interface DomainUserMapper {
 
     User toDomain(UserCreateRequestDto dto);
 
-    UserDetailResponseDto toDetailDto(User user);
+    UserDetailResponseDto toDetailDto(User domain);
 }
