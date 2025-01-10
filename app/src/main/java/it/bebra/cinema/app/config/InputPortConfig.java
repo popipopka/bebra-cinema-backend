@@ -10,12 +10,10 @@ import it.bebra.cinema.application.port.out.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @Configuration
 @RequiredArgsConstructor
-@EnableJpaRepositories
 public class InputPortConfig {
     private final AuthorityOutputPort authorityOutputPort;
     private final MovieOutputPort movieOutputPort;
@@ -63,5 +61,10 @@ public class InputPortConfig {
     @Bean
     public CreateTicketInputPort createTicketInputPort() {
         return new CreateTicketUseCase(ticketOutputPort, userOutputPort, sessionOutputPort);
+    }
+
+    @Bean
+    public UpdateUserInputPort updateUserInputPort() {
+        return new UpdateUserUseCase(userOutputPort, domainUserMapper);
     }
 }

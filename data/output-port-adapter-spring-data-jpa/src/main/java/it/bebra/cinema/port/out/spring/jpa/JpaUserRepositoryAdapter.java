@@ -28,6 +28,11 @@ public class JpaUserRepositoryAdapter implements UserOutputPort {
     }
 
     @Override
+    public void update(User user) {
+        jpaUserRepository.save(userMapper.toEntity(user));
+    }
+
+    @Override
     public int create(User user) {
         return jpaUserRepository
                 .save(userMapper.toEntity(user))

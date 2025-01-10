@@ -10,4 +10,6 @@ public interface UserOutputPort {
     Optional<User> findByUsername(String username);
 
     boolean existsByUsername(String username);
+
+    void update(User user);
 }
