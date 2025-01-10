@@ -43,6 +43,9 @@ public final class JpaUser {
     @Column(nullable = false)
     private Instant updatedTime;
 
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_authority",

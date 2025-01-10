@@ -1,8 +1,8 @@
 package it.bebra.cinema.port.out.spring.jpa;
 
 import it.bebra.cinema.application.port.out.UserOutputPort;
-import it.bebra.cinema.persistence.database.spring.jpa.repository.JpaUserRepository;
 import it.bebra.cinema.domain.User;
+import it.bebra.cinema.persistence.database.spring.jpa.repository.JpaUserRepository;
 import it.bebra.cinema.port.out.spring.jpa.mapper.JpaUserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class JpaUserRepositoryAdapter implements UserOutputPort {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return jpaUserRepository.findByUsername(username)
+        return jpaUserRepository.findByUsernameAndIsDeletedFalse(username)
                 .map(userMapper::toDomain);
     }
 

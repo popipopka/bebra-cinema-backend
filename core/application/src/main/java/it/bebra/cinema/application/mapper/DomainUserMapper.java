@@ -5,7 +5,6 @@ import it.bebra.cinema.application.dto.request.UserUpdateRequestDto;
 import it.bebra.cinema.application.dto.response.UserDetailResponseDto;
 import it.bebra.cinema.domain.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
@@ -17,6 +16,5 @@ public interface DomainUserMapper {
 
     UserDetailResponseDto toDetailDto(User domain);
 
-    @Mapping(target = "id", ignore = true)
     void updateDomain(@MappingTarget User domain, UserUpdateRequestDto payload);
 }

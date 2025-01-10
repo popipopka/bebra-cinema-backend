@@ -72,4 +72,9 @@ public class InputPortConfig {
     public DeleteTicketInputPort deleteTicketInputPort() {
         return new DeleteTicketUseCase(ticketOutputPort);
     }
+
+    @Bean
+    public SoftDeleteUserInputPort deleteUserInputPort() {
+        return new SoftDeleteUserUseCase(userOutputPort);
+    }
 }

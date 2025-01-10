@@ -29,6 +29,9 @@ public final class User {
     private Instant updatedTime = Instant.now();
 
     @Builder.Default
+    private Boolean isDeleted = false;
+
+    @Builder.Default
     private Set<Authority> authorities = new HashSet<>();
 
     public void addAuthority(final Authority authority) {
