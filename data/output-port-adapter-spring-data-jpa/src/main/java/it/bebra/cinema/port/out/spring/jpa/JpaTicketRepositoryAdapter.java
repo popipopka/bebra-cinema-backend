@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -38,5 +39,17 @@ public class JpaTicketRepositoryAdapter implements TicketOutputPort {
         return jpaTicketRepository
                 .save(ticketMapper.toEntity(ticket))
                 .getId();
+    }
+
+    @Override
+    public Optional<Ticket> findById(int id) {
+        return jpaTicketRepository
+                .findById(id)
+                .map(ticketMapper::toDomain);
+    }
+
+    @Override
+    public void delete(int id) {
+        jpaTicketRepository.deleteById(id);
     }
 }

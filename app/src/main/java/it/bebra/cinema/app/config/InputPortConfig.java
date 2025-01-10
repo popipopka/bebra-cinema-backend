@@ -67,4 +67,9 @@ public class InputPortConfig {
     public UpdateUserInputPort updateUserInputPort() {
         return new UpdateUserUseCase(userOutputPort, domainUserMapper);
     }
+
+    @Bean
+    public DeleteTicketInputPort deleteTicketInputPort() {
+        return new DeleteTicketUseCase(ticketOutputPort);
+    }
 }
