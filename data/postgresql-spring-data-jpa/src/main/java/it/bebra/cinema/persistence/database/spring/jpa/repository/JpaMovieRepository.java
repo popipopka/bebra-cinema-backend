@@ -14,19 +14,22 @@ public interface JpaMovieRepository extends JpaRepository<JpaMovie, Integer> {
     Optional<JpaMovie> findById(int id);
 
     @Query("""
-            select m 
+            select m
             from JpaMovie m
             where m.id < :id
+                and m.name ilike concat('%', :query, '%')
             order by m.id desc
             fetch next :limit rows only
             """)
-    List<JpaMovie> findAllWithLimitByIdLessThan(@Param("id") int id, @Param("limit") int limit);
+    List<JpaMovie> findAllForKeysetPaginationByNameLike(@Param("id") int id,
+                                                        @Param("limit") int limit,
+                                                        @Param("query") String query);
 
     @Query("""
-            select exists 
-            (select 1 
-                from JpaMovie 
+            select exists
+            (select 1
+                from JpaMovie
                 where id < :id)
             """)
-    boolean existsByIdLessThan(@Param("id") int id);
+    boolean existsForKeysetPagination(@Param("id") int id);
 }

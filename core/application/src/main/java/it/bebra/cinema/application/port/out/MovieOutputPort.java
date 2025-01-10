@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MovieOutputPort {
-    List<Movie> findAllWithLimitByIdLessThan(int id, int limit);
+    List<Movie> findAllForKeysetPagination(int id, int limit, String query);
 
     Optional<Movie> findById(int id);
 
-    boolean existsByIdLessThan(int id);
+    boolean existsForKeysetPagination(int id);
 }

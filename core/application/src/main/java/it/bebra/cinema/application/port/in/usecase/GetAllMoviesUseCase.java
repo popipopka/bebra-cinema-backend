@@ -20,21 +20,21 @@ public class GetAllMoviesUseCase implements GetAllMoviesInputPort {
     private final DomainMovieMapper domainMovieMapper;
 
     @Override
-    public KeysetPageDto<MovieListResponseDto> invoke(Optional<Integer> lastId, int limit) {
-        var movies = getListWithMovieListResponseDto(lastId.orElse(Integer.MAX_VALUE), limit);
+    public KeysetPageDto<MovieListResponseDto> invoke(Optional<Integer> lastId, int limit, String query) {
+        var movies = getListWithMovieListResponseDto(lastId.orElse(Integer.MAX_VALUE), limit, query);
 
         if (movies.isEmpty()) {
             return new KeysetPageDto<>(movies, null, false);
         }
 
         int newLastId = movies.get(movies.size() - 1).getId();
-        boolean hasNextPage = movieOutputPort.existsByIdLessThan(newLastId);
+        boolean hasNextPage = movieOutputPort.existsForKeysetPagination(newLastId);
 
         return new KeysetPageDto<>(movies, Map.of(LAST_ID.getValue(), newLastId), hasNextPage);
     }
 
-    private List<MovieListResponseDto> getListWithMovieListResponseDto(int lastId, int limit) {
-        return movieOutputPort.findAllWithLimitByIdLessThan(lastId, limit)
+    private List<MovieListResponseDto> getListWithMovieListResponseDto(int lastId, int limit, String query) {
+        return movieOutputPort.findAllForKeysetPagination(lastId, limit, query)
                 .stream()
                 .map(domainMovieMapper::toListDto)
                 .toList();

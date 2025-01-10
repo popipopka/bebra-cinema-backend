@@ -19,9 +19,10 @@ public class GetAllMoviesController {
     @GetMapping("/api/v1/movies")
     public ResponseEntity<KeysetPageDto<MovieListResponseDto>> getAllMovies(
             @RequestParam(required = false) Optional<Integer> lastId,
-            @RequestParam(required = false, defaultValue = "20") int limit
+            @RequestParam(required = false, defaultValue = "20") int limit,
+            @RequestParam(required = false, defaultValue = "") String query
     ) {
-        var movies = getAllMoviesInputPort.invoke(lastId, limit);
+        var movies = getAllMoviesInputPort.invoke(lastId, limit, query);
 
         return movies.getItems().isEmpty()
                 ? ResponseEntity.noContent().build()

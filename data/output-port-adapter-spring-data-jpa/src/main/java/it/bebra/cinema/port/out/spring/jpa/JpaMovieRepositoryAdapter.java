@@ -17,8 +17,8 @@ public class JpaMovieRepositoryAdapter implements MovieOutputPort {
     private final JpaMovieMapper movieMapper;
 
     @Override
-    public List<Movie> findAllWithLimitByIdLessThan(int id, int limit) {
-        return jpaMovieRepository.findAllWithLimitByIdLessThan(id, limit)
+    public List<Movie> findAllForKeysetPagination(int id, int limit, String query) {
+        return jpaMovieRepository.findAllForKeysetPaginationByNameLike(id, limit, query)
                 .stream()
                 .map(movieMapper::toDomain)
                 .toList();
@@ -31,7 +31,7 @@ public class JpaMovieRepositoryAdapter implements MovieOutputPort {
     }
 
     @Override
-    public boolean existsByIdLessThan(int id) {
-        return jpaMovieRepository.existsByIdLessThan(id);
+    public boolean existsForKeysetPagination(int id) {
+        return jpaMovieRepository.existsForKeysetPagination(id);
     }
 }
