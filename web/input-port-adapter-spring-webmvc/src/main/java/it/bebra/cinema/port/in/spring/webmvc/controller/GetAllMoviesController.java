@@ -1,8 +1,9 @@
-package it.bebra.cinema.port.in.spring.webmvc;
+package it.bebra.cinema.port.in.spring.webmvc.controller;
 
-import it.bebra.cinema.application.dto.page.KeysetPageDto;
-import it.bebra.cinema.application.dto.response.MovieListResponseDto;
+import it.bebra.cinema.application.dto.page.KeysetPage;
+import it.bebra.cinema.port.in.spring.webmvc.dto.MovieListResponseDto;
 import it.bebra.cinema.application.port.in.GetAllMoviesInputPort;
+import it.bebra.cinema.port.in.spring.webmvc.mapper.KeysetPageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +16,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GetAllMoviesController {
     private final GetAllMoviesInputPort getAllMoviesInputPort;
+    private final KeysetPageMapper keysetPageMapper;
 
     @GetMapping("/api/v1/movies")
-    public ResponseEntity<KeysetPageDto<MovieListResponseDto>> getAllMovies(
+    public ResponseEntity<KeysetPage<MovieListResponseDto>> getAllMovies(
             @RequestParam(required = false) Optional<Integer> lastId,
             @RequestParam(required = false, defaultValue = "20") int limit,
             @RequestParam(required = false, defaultValue = "") String query
     ) {
-        var movies = getAllMoviesInputPort.invoke(lastId, limit, query);
+        var moviePage = keysetPageMapper.toMoviePage(
+                getAllMoviesInputPort.invoke(lastId, limit, query)
+        );
 
-        return movies.getItems().isEmpty()
+        return moviePage.getItems().isEmpty()
                 ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(movies);
+                : ResponseEntity.ok(moviePage);
     }
 }

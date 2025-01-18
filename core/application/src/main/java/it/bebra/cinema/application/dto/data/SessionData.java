@@ -1,4 +1,4 @@
-package it.bebra.cinema.application.dto.response;
+package it.bebra.cinema.application.dto.data;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,10 +7,12 @@ import java.time.Instant;
 
 @Data
 @Builder
-public class SessionListResponseDto {
+public class SessionData {
     private int id;
 
-    private String hallName;
+    private MovieData movie;
+
+    private HallData hall;
 
     private Instant startTime;
 

@@ -1,6 +1,6 @@
-package it.bebra.cinema.port.in.spring.webmvc;
+package it.bebra.cinema.port.in.spring.webmvc.controller;
 
-import it.bebra.cinema.application.dto.request.UserCreateRequestDto;
+import it.bebra.cinema.application.dto.request.UserCreateRequest;
 import it.bebra.cinema.application.port.in.CreateUserInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class CreateUserController {
     private final CreateUserInputPort createUserInputPort;
 
     @PostMapping("api/v1/users")
-    public ResponseEntity<Void> createUser(@RequestBody UserCreateRequestDto body, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Void> createUser(@RequestBody UserCreateRequest body, UriComponentsBuilder uriBuilder) {
         int userId = createUserInputPort.invoke(body);
 
         return ResponseEntity

@@ -1,9 +1,6 @@
 package it.bebra.cinema.app.config;
 
-import it.bebra.cinema.application.mapper.DomainMovieMapper;
-import it.bebra.cinema.application.mapper.DomainSessionMapper;
-import it.bebra.cinema.application.mapper.DomainTicketMapper;
-import it.bebra.cinema.application.mapper.DomainUserMapper;
+import it.bebra.cinema.application.mapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,5 +24,10 @@ public class MapperConfig {
     @Bean
     public DomainSessionMapper domainSessionMapper() {
         return DomainSessionMapper.INSTANCE;
+    }
+
+    @Bean
+    public DomainHallMapper domainHallMapper() {
+        return DomainHallMapper.INSTANCE;
     }
 }

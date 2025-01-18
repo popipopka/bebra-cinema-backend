@@ -1,6 +1,6 @@
 package it.bebra.cinema.application.port.in.usecase;
 
-import it.bebra.cinema.application.dto.response.MovieDetailResponseDto;
+import it.bebra.cinema.application.dto.data.MovieData;
 import it.bebra.cinema.application.exception.MovieNotFoundException;
 import it.bebra.cinema.application.mapper.DomainMovieMapper;
 import it.bebra.cinema.application.port.in.GetMovieInputPort;
@@ -14,9 +14,9 @@ public class GetMovieUseCase implements GetMovieInputPort {
     private final DomainMovieMapper domainMovieMapper;
 
     @Override
-    public MovieDetailResponseDto invoke(int id) {
+    public MovieData invoke(int id) {
         return movieOutputPort.findById(id)
-                .map(domainMovieMapper::toDetailDto)
+                .map(domainMovieMapper::toData)
                 .orElseThrow(() -> new MovieNotFoundException(id));
     }
 }

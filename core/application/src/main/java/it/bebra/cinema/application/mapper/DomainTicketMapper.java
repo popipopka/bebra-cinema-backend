@@ -1,17 +1,14 @@
 package it.bebra.cinema.application.mapper;
 
-import it.bebra.cinema.application.dto.response.TicketListResponseDto;
+import it.bebra.cinema.application.dto.data.TicketData;
 import it.bebra.cinema.domain.Ticket;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(config = DomainMapperConfig.class)
+@Mapper(config = DomainMapperConfig.class,
+        uses = {DomainSessionMapper.class, DomainUserMapper.class})
 public interface DomainTicketMapper {
     DomainTicketMapper INSTANCE = Mappers.getMapper(DomainTicketMapper.class);
 
-    @Mapping(source = "session.startTime", target = "sessionStartTime")
-    @Mapping(source = "session.movie.name", target = "movieName")
-    @Mapping(source = "session.movie.posterUrl", target = "moviePosterUrl")
-    TicketListResponseDto toListDto(Ticket domain);
+    TicketData toData(Ticket domain);
 }

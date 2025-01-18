@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class KeysetPageDto<T> {
+public class KeysetPage<T> {
     private List<T> items;
 
     private Map<String, Object> cursors;

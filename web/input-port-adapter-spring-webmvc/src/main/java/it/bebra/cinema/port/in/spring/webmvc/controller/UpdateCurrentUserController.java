@@ -1,6 +1,6 @@
-package it.bebra.cinema.port.in.spring.webmvc;
+package it.bebra.cinema.port.in.spring.webmvc.controller;
 
-import it.bebra.cinema.application.dto.request.UserUpdateRequestDto;
+import it.bebra.cinema.application.dto.request.UserUpdateRequest;
 import it.bebra.cinema.application.port.in.UpdateUserInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class UpdateCurrentUserController {
 
     @PatchMapping("api/v1/users/me")
     public ResponseEntity<Void> updateUser(@AuthenticationPrincipal UserDetails userDetails,
-                                           @RequestBody UserUpdateRequestDto body) {
+                                           @RequestBody UserUpdateRequest body) {
         updateUserInputPort.invoke(userDetails.getUsername(), body);
 
         return ResponseEntity.ok().build();

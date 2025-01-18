@@ -1,6 +1,6 @@
 package it.bebra.cinema.application.port.in.usecase;
 
-import it.bebra.cinema.application.dto.request.UserCreateRequestDto;
+import it.bebra.cinema.application.dto.request.UserCreateRequest;
 import it.bebra.cinema.application.exception.AuthorityNotFoundException;
 import it.bebra.cinema.application.exception.UserAlreadyExistsException;
 import it.bebra.cinema.application.mapper.DomainUserMapper;
@@ -22,7 +22,7 @@ public class CreateUserUseCase implements CreateUserInputPort {
     private final DomainUserMapper userMapper;
 
     @Override
-    public int invoke(UserCreateRequestDto request) {
+    public int invoke(UserCreateRequest request) {
         if (userOutputPort.existsByUsername(request.getUsername())) {
             throw new UserAlreadyExistsException(request.getUsername());
         }

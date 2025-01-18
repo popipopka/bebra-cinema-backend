@@ -1,4 +1,4 @@
-package it.bebra.cinema.port.in.spring.webmvc;
+package it.bebra.cinema.port.in.spring.webmvc.controller;
 
 import it.bebra.cinema.application.port.in.DeleteTicketInputPort;
 import lombok.RequiredArgsConstructor;

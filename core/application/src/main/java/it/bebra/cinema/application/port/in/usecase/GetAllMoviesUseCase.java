@@ -1,7 +1,7 @@
 package it.bebra.cinema.application.port.in.usecase;
 
-import it.bebra.cinema.application.dto.page.KeysetPageDto;
-import it.bebra.cinema.application.dto.response.MovieListResponseDto;
+import it.bebra.cinema.application.dto.data.MovieData;
+import it.bebra.cinema.application.dto.page.KeysetPage;
 import it.bebra.cinema.application.mapper.DomainMovieMapper;
 import it.bebra.cinema.application.port.in.GetAllMoviesInputPort;
 import it.bebra.cinema.application.port.out.MovieOutputPort;
@@ -20,23 +20,23 @@ public class GetAllMoviesUseCase implements GetAllMoviesInputPort {
     private final DomainMovieMapper domainMovieMapper;
 
     @Override
-    public KeysetPageDto<MovieListResponseDto> invoke(Optional<Integer> lastId, int limit, String query) {
-        var movies = getListWithMovieListResponseDto(lastId.orElse(Integer.MAX_VALUE), limit, query);
+    public KeysetPage<MovieData> invoke(Optional<Integer> lastId, int limit, String query) {
+        var movies = getListWithMovieData(lastId.orElse(Integer.MAX_VALUE), limit, query);
 
         if (movies.isEmpty()) {
-            return new KeysetPageDto<>(movies, null, false);
+            return new KeysetPage<>(movies, null, false);
         }
 
         int newLastId = movies.get(movies.size() - 1).getId();
         boolean hasNextPage = movieOutputPort.existsForKeysetPagination(newLastId);
 
-        return new KeysetPageDto<>(movies, Map.of(LAST_ID.getValue(), newLastId), hasNextPage);
+        return new KeysetPage<>(movies, Map.of(LAST_ID.getValue(), newLastId), hasNextPage);
     }
 
-    private List<MovieListResponseDto> getListWithMovieListResponseDto(int lastId, int limit, String query) {
+    private List<MovieData> getListWithMovieData(int lastId, int limit, String query) {
         return movieOutputPort.findAllForKeysetPagination(lastId, limit, query)
                 .stream()
-                .map(domainMovieMapper::toListDto)
+                .map(domainMovieMapper::toData)
                 .toList();
     }
 }

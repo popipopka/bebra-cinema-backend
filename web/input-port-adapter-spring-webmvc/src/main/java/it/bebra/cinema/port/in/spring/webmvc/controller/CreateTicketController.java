@@ -1,6 +1,6 @@
-package it.bebra.cinema.port.in.spring.webmvc;
+package it.bebra.cinema.port.in.spring.webmvc.controller;
 
-import it.bebra.cinema.application.dto.request.TicketCreateRequestDto;
+import it.bebra.cinema.application.dto.request.TicketCreateRequest;
 import it.bebra.cinema.application.port.in.CreateTicketInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class CreateTicketController {
     @PostMapping("/api/v1/tickets")
     public ResponseEntity<Void> createTicket(
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestBody TicketCreateRequestDto body,
+            @RequestBody TicketCreateRequest body,
             UriComponentsBuilder uriBuilder
     ) {
         int ticketId = createTicketInputPort.invoke(userDetails.getUsername(), body);

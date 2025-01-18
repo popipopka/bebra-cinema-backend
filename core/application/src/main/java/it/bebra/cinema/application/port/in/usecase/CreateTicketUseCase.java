@@ -1,6 +1,6 @@
 package it.bebra.cinema.application.port.in.usecase;
 
-import it.bebra.cinema.application.dto.request.TicketCreateRequestDto;
+import it.bebra.cinema.application.dto.request.TicketCreateRequest;
 import it.bebra.cinema.application.exception.SessionNotFoundException;
 import it.bebra.cinema.application.exception.TicketCreateException;
 import it.bebra.cinema.application.exception.UserNotFoundException;
@@ -22,7 +22,7 @@ public class CreateTicketUseCase implements CreateTicketInputPort {
     private final SessionOutputPort sessionOutputPort;
 
     @Override
-    public int invoke(String username, TicketCreateRequestDto request) {
+    public int invoke(String username, TicketCreateRequest request) {
         int sessionId = request.getSessionId();
         Session session = sessionOutputPort.findById(sessionId)
                 .orElseThrow(() -> new SessionNotFoundException(sessionId));

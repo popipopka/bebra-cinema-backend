@@ -1,4 +1,4 @@
-package it.bebra.cinema.application.dto.response;
+package it.bebra.cinema.port.in.spring.webmvc.dto;
 
 import lombok.Builder;
 import lombok.Data;

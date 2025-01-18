@@ -1,7 +1,7 @@
 package it.bebra.cinema.application.port.in;
 
-import it.bebra.cinema.application.dto.response.UserDetailResponseDto;
+import it.bebra.cinema.application.dto.data.UserData;
 
 public interface GetUserInputPort {
-    UserDetailResponseDto invoke(String username);
+    UserData invoke(String username);
 }

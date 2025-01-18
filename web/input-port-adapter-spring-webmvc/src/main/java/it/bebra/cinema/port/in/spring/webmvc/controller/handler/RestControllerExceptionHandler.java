@@ -1,4 +1,4 @@
-package it.bebra.cinema.port.in.spring.webmvc.exception;
+package it.bebra.cinema.port.in.spring.webmvc.controller.handler;
 
 import it.bebra.cinema.application.exception.*;
 import it.bebra.cinema.security.jwt.exception.JwtAuthenticationException;

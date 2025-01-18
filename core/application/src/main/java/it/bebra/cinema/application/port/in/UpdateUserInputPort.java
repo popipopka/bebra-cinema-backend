@@ -1,7 +1,7 @@
 package it.bebra.cinema.application.port.in;
 
-import it.bebra.cinema.application.dto.request.UserUpdateRequestDto;
+import it.bebra.cinema.application.dto.request.UserUpdateRequest;
 
 public interface UpdateUserInputPort {
-    void invoke(String username, UserUpdateRequestDto request);
+    void invoke(String username, UserUpdateRequest request);
 }

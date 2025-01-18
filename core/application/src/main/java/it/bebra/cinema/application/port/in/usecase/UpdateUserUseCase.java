@@ -1,6 +1,6 @@
 package it.bebra.cinema.application.port.in.usecase;
 
-import it.bebra.cinema.application.dto.request.UserUpdateRequestDto;
+import it.bebra.cinema.application.dto.request.UserUpdateRequest;
 import it.bebra.cinema.application.exception.UserNotFoundException;
 import it.bebra.cinema.application.mapper.DomainUserMapper;
 import it.bebra.cinema.application.port.in.UpdateUserInputPort;
@@ -16,7 +16,7 @@ public class UpdateUserUseCase implements UpdateUserInputPort {
     private final DomainUserMapper domainUserMapper;
 
     @Override
-    public void invoke(String username, UserUpdateRequestDto payload) {
+    public void invoke(String username, UserUpdateRequest payload) {
         User user = userOutputPort.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 

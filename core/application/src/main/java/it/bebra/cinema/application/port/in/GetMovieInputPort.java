@@ -1,7 +1,7 @@
 package it.bebra.cinema.application.port.in;
 
-import it.bebra.cinema.application.dto.response.MovieDetailResponseDto;
+import it.bebra.cinema.application.dto.data.MovieData;
 
 public interface GetMovieInputPort {
-    MovieDetailResponseDto invoke(int id);
+    MovieData invoke(int id);
 }
