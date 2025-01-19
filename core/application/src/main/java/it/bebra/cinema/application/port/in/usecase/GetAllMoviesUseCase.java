@@ -20,8 +20,10 @@ public class GetAllMoviesUseCase implements GetAllMoviesInputPort {
     private final DomainMovieMapper domainMovieMapper;
 
     @Override
-    public KeysetPage<MovieData> invoke(Optional<Integer> lastId, int limit, String query) {
-        var movies = getListWithMovieData(lastId.orElse(Integer.MAX_VALUE), limit, query);
+    public KeysetPage<MovieData> invoke(Integer lastId, int limit, String query) {
+        int notNullLastId = Optional.ofNullable(lastId).orElse(Integer.MAX_VALUE);
+
+        var movies = getListWithMovieData(notNullLastId, limit, query);
 
         if (movies.isEmpty()) {
             return new KeysetPage<>(movies, null, false);

@@ -19,8 +19,10 @@ public class GetAllTicketsUseCase implements GetAllTicketsInputPort {
     private final DomainTicketMapper ticketMapper;
 
     @Override
-    public KeysetPage<TicketData> invoke(String username, Optional<Integer> lastId, int limit) {
-        var tickets = getListWithTicketData(username, lastId.orElse(Integer.MAX_VALUE), limit);
+    public KeysetPage<TicketData> invoke(String username, Integer lastId, int limit) {
+        int notNullLastId = Optional.ofNullable(lastId).orElse(Integer.MAX_VALUE);
+
+        var tickets = getListWithTicketData(username, notNullLastId, limit);
 
         if (tickets.isEmpty()) {
             return new KeysetPage<>(tickets, null, false);
