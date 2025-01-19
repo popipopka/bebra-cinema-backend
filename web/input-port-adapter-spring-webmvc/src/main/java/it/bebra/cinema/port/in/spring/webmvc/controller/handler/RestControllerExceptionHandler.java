@@ -6,13 +6,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static it.bebra.cinema.application.exception.TicketCreateException.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static it.bebra.cinema.application.exception.TicketCreateException.NO_EMPTY_SEATS_FOR_SESSION_MESSAGE;
+import static it.bebra.cinema.application.exception.TicketCreateException.SESSION_ALREADY_STARTED_MESSAGE;
 
 @RestControllerAdvice
 public class RestControllerExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ProblemDetail> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        List<FieldConstraintViolation> violations = new ArrayList<>();
+
+        ex.getFieldErrors().forEach(e ->
+                violations.add(FieldConstraintViolation.of(e.getField(), e.getDefaultMessage()))
+        );
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(ex.getStatusCode());
+        problemDetail.setProperty("violations", violations);
+
+        return ResponseEntity
+                .of(problemDetail)
+                .build();
+    }
 
     @ExceptionHandler(JwtAuthenticationException.class)
     public ResponseEntity<ProblemDetail> handleJwtAuthenticationException(JwtAuthenticationException ex) {
