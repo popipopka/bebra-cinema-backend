@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.bebra.cinema.application.exception.TicketCreateException.NO_EMPTY_SEATS_FOR_SESSION_MESSAGE;
-import static it.bebra.cinema.application.exception.TicketCreateException.SESSION_ALREADY_STARTED_MESSAGE;
-
 @RestControllerAdvice
 public class RestControllerExceptionHandler {
 
@@ -42,6 +39,11 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(TicketDeleteException.class)
     public ResponseEntity<ProblemDetail> handleTicketDeleteException(TicketDeleteException ex) {
+        return buildResponseEntity(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
+    @ExceptionHandler(TooCloseToSessionException.class)
+    public ResponseEntity<ProblemDetail> handleTooCloseToSessionException(TooCloseToSessionException ex) {
         return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
@@ -75,26 +77,14 @@ public class RestControllerExceptionHandler {
         return buildResponseEntity(HttpStatus.CONFLICT, ex.getMessage());
     }
 
-    @ExceptionHandler(TicketCreateException.class)
-    public ResponseEntity<ProblemDetail> handleTicketCreateException(TicketCreateException ex) {
-        HttpStatus httpStatus = determineHttpStatusForTicketCreateException(ex);
-
-        return buildResponseEntity(httpStatus, ex.getMessage());
+    @ExceptionHandler(SessionAlreadyStartedException.class)
+    public ResponseEntity<ProblemDetail> handleSessionAlreadyStartedException(SessionAlreadyStartedException ex) {
+        return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    private HttpStatus determineHttpStatusForTicketCreateException(TicketCreateException exception) {
-        if (isExpectedMessage(exception, SESSION_ALREADY_STARTED_MESSAGE)) {
-            return HttpStatus.CONFLICT;
-
-        } else if (isExpectedMessage(exception, NO_EMPTY_SEATS_FOR_SESSION_MESSAGE)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-
-        return HttpStatus.INTERNAL_SERVER_ERROR;
-    }
-
-    private boolean isExpectedMessage(TicketCreateException exception, String expected) {
-        return expected.formatted(exception.getSessionId()).equals(exception.getMessage());
+    @ExceptionHandler(NoEmptySeatsException.class)
+    public ResponseEntity<ProblemDetail> handleNoEmptySeatsException(NoEmptySeatsException ex) {
+        return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     private ResponseEntity<ProblemDetail> buildResponseEntity(HttpStatus httpStatus, String message) {
