@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import it.bebra.cinema.application.port.in.GetMovieInputPort;
 import it.bebra.cinema.port.in.spring.webmvc.dto.MovieDetailResponseDto;
 import it.bebra.cinema.port.in.spring.webmvc.mapper.MovieDataMapper;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +52,9 @@ public class GetMovieController {
             security = @SecurityRequirement(name = "JWT")
     )
     @GetMapping(value = "/api/v1/movies/{id:^\\d+$}", produces = "application/json")
-    public ResponseEntity<MovieDetailResponseDto> getMovie(@PathVariable int id) {
+    public ResponseEntity<MovieDetailResponseDto> getMovie(
+            @PathVariable @Min(1) int id
+    ) {
         var movie = movieDataMapper.toDetailDto(
                 getMovieInputPort.invoke(id)
         );

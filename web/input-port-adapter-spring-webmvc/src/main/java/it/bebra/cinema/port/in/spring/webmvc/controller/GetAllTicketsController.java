@@ -12,6 +12,7 @@ import it.bebra.cinema.application.port.in.GetAllTicketsInputPort;
 import it.bebra.cinema.port.in.spring.webmvc.dto.TicketListResponseDto;
 import it.bebra.cinema.port.in.spring.webmvc.mapper.KeysetPageMapper;
 import it.bebra.cinema.port.in.spring.webmvc.openapi.schema.KeysetPageTicketListResponseDtoSchema;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -69,8 +70,8 @@ public class GetAllTicketsController {
     @GetMapping(value = "api/v1/tickets", produces = "application/json")
     public ResponseEntity<KeysetPage<TicketListResponseDto>> getAllTickets(
             @AuthenticationPrincipal UserDetails user,
-            @RequestParam(required = false) Integer lastId,
-            @RequestParam(required = false, defaultValue = "10") int limit
+            @RequestParam(required = false) @Min(1) Integer lastId,
+            @RequestParam(required = false, defaultValue = "10") @Min(1) int limit
     ) {
         var ticketPage = keysetPageMapper.toTicketPage(
                 getAllTicketsUseCase.invoke(user.getUsername(), lastId, limit)

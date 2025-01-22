@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.bebra.cinema.application.port.in.DeleteTicketInputPort;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -52,7 +53,7 @@ public class DeleteTicketController {
     )
     @DeleteMapping("api/v1/tickets/{id:^\\d*$}")
     public ResponseEntity<Void> deleteTicket(
-            @PathVariable int id,
+            @PathVariable @Min(1) int id,
             @AuthenticationPrincipal UserDetails userDetails
     ) {
         deleteTicketInputPort.invoke(userDetails.getUsername(), id);

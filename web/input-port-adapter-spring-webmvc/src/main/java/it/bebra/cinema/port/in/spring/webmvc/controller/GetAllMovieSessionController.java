@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import it.bebra.cinema.application.port.in.GetAllMovieSessionsInputPort;
 import it.bebra.cinema.port.in.spring.webmvc.dto.SessionListResponseDto;
 import it.bebra.cinema.port.in.spring.webmvc.mapper.SessionDataMapper;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +54,9 @@ public class GetAllMovieSessionController {
             security = @SecurityRequirement(name = "JWT")
     )
     @GetMapping(value = "/api/v1/movies/{movieId:^\\d+$}/sessions", produces = "application/json")
-    public ResponseEntity<List<SessionListResponseDto>> getAllMovieSessions(@PathVariable int movieId) {
+    public ResponseEntity<List<SessionListResponseDto>> getAllMovieSessions(
+            @PathVariable @Min(1) int movieId
+    ) {
         var sessions = getAllMovieSessionsInputPort.invoke(movieId)
                 .stream()
                 .map(sessionDataMapper::toListDto)
