@@ -5,7 +5,7 @@ import it.bebra.cinema.application.port.out.UserOutputPort;
 import it.bebra.cinema.domain.User;
 import it.bebra.cinema.security.jwt.domain.Token;
 import it.bebra.cinema.security.jwt.dto.LoginRequestDto;
-import it.bebra.cinema.security.jwt.dto.LoginResponseDto;
+import it.bebra.cinema.security.jwt.dto.TokensData;
 import it.bebra.cinema.security.jwt.service.JwtTokenType;
 import it.bebra.cinema.security.jwt.service.JwtTokenServiceProvider;
 import it.bebra.cinema.security.jwt.port.in.LoginInputPort;
@@ -28,7 +28,7 @@ public class LoginUseCase implements LoginInputPort {
     private final JwtTokenServiceProvider jwtTokenServiceProvider;
 
     @Override
-    public LoginResponseDto invoke(LoginRequestDto loginRequestDto) {
+    public TokensData invoke(LoginRequestDto loginRequestDto) {
         String username = loginRequestDto.getUsername();
 
         User user = userOutputPort.findByUsername(username)
@@ -47,7 +47,7 @@ public class LoginUseCase implements LoginInputPort {
 
         Token accessToken = jwtTokenServiceProvider.generateToken(user, JwtTokenType.ACCESS);
 
-        return LoginResponseDto.builder()
+        return TokensData.builder()
                 .accessToken(accessToken.getValue())
                 .refreshToken(newRefreshToken.getValue())
                 .build();

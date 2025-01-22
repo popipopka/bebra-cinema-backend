@@ -1,8 +1,9 @@
 package it.bebra.cinema.application.port.in.usecase;
 
 import it.bebra.cinema.application.dto.request.TicketCreateRequest;
+import it.bebra.cinema.application.exception.NoEmptySeatsException;
 import it.bebra.cinema.application.exception.SessionNotFoundException;
-import it.bebra.cinema.application.exception.TicketCreateException;
+import it.bebra.cinema.application.exception.SessionAlreadyStartedException;
 import it.bebra.cinema.application.exception.UserNotFoundException;
 import it.bebra.cinema.application.port.in.CreateTicketInputPort;
 import it.bebra.cinema.application.port.out.SessionOutputPort;
@@ -47,11 +48,11 @@ public class CreateTicketUseCase implements CreateTicketInputPort {
         int sessionId = session.getId();
 
         if (Instant.now().isAfter(session.getStartTime())) {
-            throw TicketCreateException.sessionAlreadyStarted(sessionId);
+            throw new SessionAlreadyStartedException(sessionId);
         }
 
         if (!hasEmptySeatsForSession(session)) {
-            throw TicketCreateException.noEmptySeatsForSession(sessionId);
+            throw new NoEmptySeatsException(sessionId);
         }
     }
 

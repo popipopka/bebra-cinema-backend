@@ -2,6 +2,7 @@ package it.bebra.cinema.application.port.in.usecase;
 
 import it.bebra.cinema.application.exception.TicketDeleteException;
 import it.bebra.cinema.application.exception.TicketNotFoundException;
+import it.bebra.cinema.application.exception.TooCloseToSessionException;
 import it.bebra.cinema.application.port.in.DeleteTicketInputPort;
 import it.bebra.cinema.application.port.out.TicketOutputPort;
 import it.bebra.cinema.domain.Session;
@@ -30,15 +31,15 @@ public class DeleteTicketUseCase implements DeleteTicketInputPort {
 
         Session session = ticket.getSession();
         if (!validateSessionStartTime(session)) {
-            throw new TicketDeleteException(SESSION_START_TIME_LIMIT, UNIT_OF_SESSION_START_TIME_LIMIT, session.getId());
+            throw new TooCloseToSessionException(SESSION_START_TIME_LIMIT, UNIT_OF_SESSION_START_TIME_LIMIT, session.getId());
         }
 
         ticketOutputPort.delete(id);
     }
 
     private boolean validateSessionStartTime(Session session) {
-        return Instant
-                .now().plus(SESSION_START_TIME_LIMIT, UNIT_OF_SESSION_START_TIME_LIMIT)
+        return Instant.now()
+                .plus(SESSION_START_TIME_LIMIT, UNIT_OF_SESSION_START_TIME_LIMIT)
                 .isBefore(session.getStartTime());
     }
 }

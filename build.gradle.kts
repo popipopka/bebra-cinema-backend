@@ -34,6 +34,8 @@ subprojects {
                 entry("jjwt-impl")
                 entry("jjwt-jackson")
             }
+
+            dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
         }
     }
 

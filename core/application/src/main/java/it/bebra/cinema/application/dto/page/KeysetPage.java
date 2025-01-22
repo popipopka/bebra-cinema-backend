@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class KeysetPage<T> {
     private List<T> items;
 

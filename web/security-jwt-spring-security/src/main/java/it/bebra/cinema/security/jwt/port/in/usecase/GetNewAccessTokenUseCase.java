@@ -3,13 +3,12 @@ package it.bebra.cinema.security.jwt.port.in.usecase;
 import it.bebra.cinema.application.exception.UserNotFoundException;
 import it.bebra.cinema.application.port.out.UserOutputPort;
 import it.bebra.cinema.domain.User;
-import it.bebra.cinema.security.jwt.exception.JwtAuthenticationException;
 import it.bebra.cinema.security.jwt.domain.Token;
-import it.bebra.cinema.security.jwt.dto.AccessTokenDto;
-import it.bebra.cinema.security.jwt.service.JwtTokenType;
-import it.bebra.cinema.security.jwt.service.JwtTokenServiceProvider;
+import it.bebra.cinema.security.jwt.exception.JwtAuthenticationException;
 import it.bebra.cinema.security.jwt.port.in.GetNewAccessTokenInputPort;
 import it.bebra.cinema.security.jwt.port.out.RefreshTokenOutputPort;
+import it.bebra.cinema.security.jwt.service.JwtTokenServiceProvider;
+import it.bebra.cinema.security.jwt.service.JwtTokenType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,17 +22,17 @@ public class GetNewAccessTokenUseCase implements GetNewAccessTokenInputPort {
     private final UserOutputPort userOutputPort;
 
     @Override
-    public AccessTokenDto invoke(String oldRefreshToken) {
-        if (!jwtTokenServiceProvider.isValid(oldRefreshToken, JwtTokenType.REFRESH)) {
+    public String invoke(String refreshToken) {
+        if (!jwtTokenServiceProvider.isValid(refreshToken, JwtTokenType.REFRESH)) {
             throw JwtAuthenticationException.invalidRefreshToken();
         }
 
-        String username = jwtTokenServiceProvider.extractUsername(oldRefreshToken, JwtTokenType.REFRESH);
+        String username = jwtTokenServiceProvider.extractUsername(refreshToken, JwtTokenType.REFRESH);
 
         Token savedRefreshToken = refreshTokenOutputPort.findTokenByUserUsername(username)
                 .orElseThrow(JwtAuthenticationException::revokedRefreshToken);
 
-        if (!savedRefreshToken.getValue().equals(oldRefreshToken)) {
+        if (!savedRefreshToken.getValue().equals(refreshToken)) {
             throw JwtAuthenticationException.revokedRefreshToken();
         }
 
@@ -42,6 +41,6 @@ public class GetNewAccessTokenUseCase implements GetNewAccessTokenInputPort {
 
         Token accessToken = jwtTokenServiceProvider.generateToken(user, JwtTokenType.ACCESS);
 
-        return new AccessTokenDto(accessToken.getValue());
+        return accessToken.getValue();
     }
 }

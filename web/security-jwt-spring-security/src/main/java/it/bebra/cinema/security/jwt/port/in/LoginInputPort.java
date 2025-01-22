@@ -1,8 +1,8 @@
 package it.bebra.cinema.security.jwt.port.in;
 
 import it.bebra.cinema.security.jwt.dto.LoginRequestDto;
-import it.bebra.cinema.security.jwt.dto.LoginResponseDto;
+import it.bebra.cinema.security.jwt.dto.TokensData;
 
 public interface LoginInputPort {
-    LoginResponseDto invoke(LoginRequestDto loginRequestDto);
+    TokensData invoke(LoginRequestDto loginRequestDto);
 }
