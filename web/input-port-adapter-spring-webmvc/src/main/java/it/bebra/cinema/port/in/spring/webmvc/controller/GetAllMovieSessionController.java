@@ -12,6 +12,7 @@ import it.bebra.cinema.port.in.spring.webmvc.mapper.SessionDataMapper;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import java.util.List;
 @Tag(name = "Сеансы", description = "Управление сеансами")
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class GetAllMovieSessionController {
     private final GetAllMovieSessionsInputPort getAllMovieSessionsInputPort;
     private final SessionDataMapper sessionDataMapper;

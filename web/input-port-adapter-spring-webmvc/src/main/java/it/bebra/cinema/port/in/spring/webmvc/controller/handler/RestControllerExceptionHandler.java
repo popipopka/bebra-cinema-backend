@@ -2,6 +2,9 @@ package it.bebra.cinema.port.in.spring.webmvc.controller.handler;
 
 import it.bebra.cinema.application.exception.*;
 import it.bebra.cinema.security.jwt.exception.JwtAuthenticationException;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -10,19 +13,20 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class RestControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ProblemDetail> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        List<FieldConstraintViolation> violations = new ArrayList<>();
-
-        ex.getFieldErrors().forEach(e ->
-                violations.add(FieldConstraintViolation.of(e.getField(), e.getDefaultMessage()))
-        );
+        List<FieldConstraintViolation> violations = ex.getFieldErrors()
+                .stream()
+                .map(e ->
+                        FieldConstraintViolation.of(e.getField(), e.getDefaultMessage())
+                )
+                .toList();
 
         ProblemDetail problemDetail = ProblemDetail.forStatus(ex.getStatusCode());
         problemDetail.setProperty("violations", violations);
@@ -85,6 +89,25 @@ public class RestControllerExceptionHandler {
     @ExceptionHandler(NoEmptySeatsException.class)
     public ResponseEntity<ProblemDetail> handleNoEmptySeatsException(NoEmptySeatsException ex) {
         return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ProblemDetail> handleConstraintViolationException(ConstraintViolationException ex) {
+        List<FieldConstraintViolation> violations = ex.getConstraintViolations().stream()
+                .map(e ->
+                        FieldConstraintViolation.of(
+                                e.getPropertyPath().toString(),
+                                e.getMessage()
+                        )
+                )
+                .toList();
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setProperty("violations", violations);
+
+        return ResponseEntity
+                .of(problemDetail)
+                .build();
     }
 
     private ResponseEntity<ProblemDetail> buildResponseEntity(HttpStatus httpStatus, String message) {

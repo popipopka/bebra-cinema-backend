@@ -15,6 +15,7 @@ import it.bebra.cinema.port.in.spring.webmvc.openapi.schema.KeysetPageMovieListR
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Фильмы", description = "Управление фильмами")
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class GetAllMoviesController {
     private final GetAllMoviesInputPort getAllMoviesInputPort;
     private final KeysetPageMapper keysetPageMapper;
